@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<meta charset="UTF-8"/>
+		<title>Inicio</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link
+		  href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+		  rel="stylesheet"
+		/>
+
+		<script>
+            const botonCerrarSesion = () => {
+                if(window.confirm("¿Está Seguro De Querer Cerrar La Sesión?")){
+                    window.location.href = "/logout";
+                }
+            }
+        </script>
+
+		<script>
+			const botonEliminar = (id) => {
+				if(window.confirm("¿Está Seguro(a) De Querer Eliminar El Registro?")){
+					window.location.href = "/eliminar_registro/"+ id;
+				}
+			}
+		</script>
+
+		<script>
+			const botonEliminarFecha = (id) => {
+				if(window.confirm("¿Está Seguro(a) De Querer Eliminar El Registro?")){
+					window.location.href = "/eliminar_fecha/"+ id;
+				}
+			}
+		</script>
+
+		<script>
+			function redirecccion(){
+				location.href = "/form_registrar_registro"
+			}
+		</script>
+
+
+
+
+
+		<script>
+			function mostrarResultado() {
+			var select = document.getElementById("opciones");
+			var opcionSeleccionada = select.value;
+			var resultadoDiv = document.getElementById("resultado");
+			var fecha = new Date(); // Suponiendo que esta sea la fecha actual
+			
+			var formula1 = new Date(fecha);
+			var formula2 = new Date(fecha);
+			var formula3 = new Date(fecha);
+			
+			switch (opcionSeleccionada) {
+				case "anual":
+				formula1.setDate(formula1.getDate() + 365);
+				resultadoDiv.innerHTML = formula1.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+				break;
+				case "mensual":
+				formula2.setDate(formula2.getDate() + 30);
+				resultadoDiv.innerHTML = formula2.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+				break;
+				case "trimestral":
+				formula3.setDate(formula3.getDate() + 90);
+				resultadoDiv.innerHTML = formula3.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+				break;
+				default:
+				resultadoDiv.innerHTML = "Selecciona una opción";
+			}
+			}
+		</script>
+
+
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			
+			}
+
+					
+			.table_header{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 20px 30px 0;
+					
+			}
+
+			button{
+				outline: none;
+				border: none;
+				background-color: #363dff;
+				color: #ffffff;
+				padding: 10px 30px;
+				border-radius: 20px;
+				text-transform: uppercase;
+				font-size: 14px;
+				cursor: pointer;
+
+				&:hover{
+				background-color: rgb(0, 67, 121);
+				}
+			}
+
+			select{
+				border: none;
+				border-bottom: 1px solid #c9c9c9;
+				width: 200px;
+				padding: 10px 0;
+				font-size: 16px;	
+			}
+
+			.input_search {
+				position: relative;
+				input{
+					border-radius: 30px;
+					width: 400px;
+					outline: none;
+					padding: 5px 20px;
+					border: 1px solid #c9c9c9;
+					box-sizing: border-box;
+					padding-right: 50px;
+				}
+				#search{
+					position: absolute;
+					top: 50%;
+					right: 0;
+					margin-right: 1rem;
+					transform: translate(-50%, -50%);
+				}
+
+			}	
+
+			table {
+				border-spacing: collapse;
+				width: 100%;
+				margin-left: -110px;
+				margin-top: 1rem;
+				font-size: 15px;
+
+				thead{
+					background-color: #fff7b3;
+
+
+					th{
+						padding: 10px;
+					}
+				}
+				tbody{
+					tr{
+						td{
+							padding: 10px;
+							text-align: center;
+							border-bottom: 1px solid #dfdfdf;
+							#icons{
+							font-size: 20px;
+							cursor: pointer;
+							margin-left: 1px;
+							color: #797979a0;
+							}
+						}
+						&:hover{
+							background-color: #f5f5f5;
+						}
+					}
+						
+				}
+			}
+
+			.table_fotter{
+				margin-top: 1rem;
+				padding: 0 30px 20px;
+			}
+			
+
+
+		</style>
+
+
+
+	</head>
+
+
+<body>
+	{% csrf_token %}
+	<nav class="navbar navbar-dark bg-dark fixed-top">
+		<div class="container-fluid">
+		 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		 </button>
+		  <a class="navbar-brand" href="#">Menu Admin</a>
+		  <div class="navbar-brand">
+			<a class="nav-link text-center text-white" href="#" onClick="botonCerrarSesion()">Cerrar Sesión</a>					
+		  </div>
+		  <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+			<div class="offcanvas-header">
+			  <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Panel</h5>
+			  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+			  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+				<li class="nav-item">
+				  <a class="nav-link active" aria-current="page" href="/form_registrar_buque">Registrar Componentes</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="/form_registrar_registro">Registrar datos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/listar_historial">Historial Horometro</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/historial_calendario">Historial calendario</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/calendario_admin">Equipo Calendario </a>
+				</li>
+				
+				</ul>
+				</li>
+			  </ul>		
+			</div>
+		  </div>
+		</div>
+	</nav>
+
+
+	</br>
+	</br>
+	</br>
+
+	
+	
+	<div class="container">
+		{% csrf_token %}
+
+		{% if r %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<h5>{{ r }}</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endif %}
+
+		{% if r2 %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<h5>{{ r2 }}</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endif %}
+
+		
+
+		<div class="table_header">
+		  <h2>Buques</h2>
+		  <button type="button" onclick="redirecccion()">Crear nuevo</button>
+		  <select name="" id="">
+			<option value=""selected>Tipo</option>
+			<option value="">Tipo1</option>
+			<option value="">Tipo2</option>
+		  </select>
+		  <div class="input_search">
+			<input type="search" placeholder="Buscar" />
+			<i class="bi bi-search" id="search"></i>
+		  </div>
+		</div>
+
+		{% if registros %}
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th>Buque</th>
+					<th>Horometro</th>
+					<th>Departamento</th>
+					<th>Sistema</th>
+					<th>Equipo</th>
+					<th>H.Standar</th>
+					<th>Actividad</th>
+					<th>Prioridad</th>
+					<th>Ultimo.M</th>
+					<th>U.Horometro</th>
+					<th>Estado</th>
+					<th>Horas P/M</th>
+					<th>Prox.M</th>
+					<th>Comentario</th>
+					<th>Estado Ejecucción</th>
+					<th>Siguiente M.</th>
+					<th>Acciones</th>
+					
+					
+				</tr>
+			</thead>
+			<tbody >
+				{% for x in registros %}
+				<tr >
+					<td>{{ x.buque.nombre_buque }}</td>
+					<td>{{ x.buque.horometro }}</td>
+					<td>{{ x.departamento.nombre_departamento }}</td>
+					<td>{{ x.sistema.nombre_sistema }}</td>
+					<td>{{ x.equipo.nombre_equipo }}</td>
+					<td>{{ x.equipo.hora_standar }}</td>
+					<td>{{ x.nombre_texto }}</td>
+					<td>{{ x.nombre_prioridad }}</td>
+					<td>{{ x.ultimo_mantenimiento }}</td>
+					<td>{{ x.ultimo_horometro }}</td>
+					<td>{{ x.estado }}</td>
+					<td>{{ x.siguiente }}</td>
+					<td>{{ x.proximo }}</td>
+					<td>{{ x.comentario }}</td>
+					<td>{{ x.estado_ejecucion }}</td>
+					<td>{{ x.proxima_fecha }}</td>
+
+				
+
+					<td>
+						<a href="/form_actualizar_registro/{{ x.id }}" >
+							<i class="bi bi-pencil-square" id="icons"></i>
+						</a>
+						<button type="button" onClick="botonEliminar({{ x.id }})" class="btn btn-lg">
+							<i class="bi bi-trash" id="icons"></i>
+						</button>
+
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+
+			
+		</table>
+
+		{% else %}
+				<h2 style="color:red" class="text-center">No Hay Registros Para Listar</h2>
+		{% endif %}
+		  
+	  </div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+		
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</body>
+</html>

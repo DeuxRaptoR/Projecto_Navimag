@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		{% load static %}
+
+		<meta charset="UTF-8"/>
+		<title>Actualizar Registros</title>
+
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
+		
+		<script>
+            const botonCerrarSesion = () => {
+                if(window.confirm("¿Está Seguro De Querer Cerrar La Sesión?")){
+                    window.location.href = "/logout";
+                }
+            }
+        </script>
+
+	</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-expand-lg bg-primary">
+			<div class="container-fluid">
+
+				
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-center text-white" href="/calendario_usuario">Inicio</a>
+						<a class="nav-link text-center text-white" href="#" onClick="botonCerrarSesion()">Cerrar Sesión</a>					
+					</div>
+				</div>
+			</div>
+	  	</nav>
+	  
+		<div style="background-color:#0040A1; padding-top:10px; padding-bottom:10px;">
+		
+			<div style="width:80%; background-color:#fff; margin:auto;">
+				
+				<form action="/actualizar_fecha_usuario/{{ encontradoss.id }}" method="post">
+					{% csrf_token %}
+					<center>
+						<h1>Actualización de datos</h1>
+
+						<select name="cboprio" class="form-select-lg text-center" style="margin-bottom:10px; width:95%;" required>
+							<option value="">Seleccione Prioridad</option>
+							
+							{% if fechas. == 'Alta' %}
+								<option value="Alta" selected>Alta</option>
+							{% else %}
+								<option value="Alta">Alta</option>
+							{% endif%}
+							
+							{% if fechas == 'Media' %}
+								<option value="Media" selected></option>
+							{% else %}
+								<option value="Media">Media</option>
+							{% endif %}
+		
+							{% if fechas  == 'Baja' %}
+								<option value="Baja" selected>Baja</option>
+							{% else %}
+								<option value="Baja">Baja</option>
+							{% endif %}
+		
+						</select>
+
+						<input value="{{encontradoss.ult_mantenimiento}}" class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="date"  placeholder="Ultimo Mantenimiento"  name="dateulti" required/>
+
+
+						<input value="{{encontradoss.texto_comentario}}" class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="comentario"  name="txtcome" required/>
+
+
+						<select name="cboejec" class="form-select-lg text-center" style="margin-bottom:10px; width:95%;" required>
+							<option value="">Seleccione Estado</option>
+							
+							{% if fechas. == 'Abierto' %}
+								<option value="Abierto" selected>Abierto</option>
+							{% else %}
+								<option value="Abierto">Abierto</option>
+							{% endif%}
+							
+							{% if fechas == 'Planificacion' %}
+								<option value="Planificacion" selected>Planificacion</option>
+							{% else %}
+								<option value="Planificacion">Planificacion</option>
+							{% endif %}
+		
+							{% if fechas  == 'Cerrado' %}
+								<option value="Cerrado" selected>Cerrado</option>
+							{% else %}
+								<option value="Cerrado">Cerrado</option>
+							{% endif %}
+		
+						</select>
+
+						<input type="submit" class="btn btn-primary btn-lg"     style="width:95%;" value="Guardar Cambios"/>
+					</center>
+				</form>
+
+				<br/>
+			
+			</div>
+
+		</div>
+
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	
+</body>
+</html>
